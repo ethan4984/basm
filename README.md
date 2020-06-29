@@ -1,2 +1,2 @@
 # basm
-bruh assembler 
+bruh assembler that atm cant do much
