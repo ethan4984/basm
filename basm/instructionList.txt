@@ -1,0 +1,126 @@
+ONE_FOR_ONE
+sti ~ fb
+cli ~ fa
+clc ~ f8
+cld ~ fc
+stc ~ f9
+std ~ fd
+cmc ~ f5
+iret ~ cf
+ret ~ c3
+cpuid ~ 09 a2
+pusha ~ 60
+popa ~ 61
+pushf ~ 9c
+popf ~ 9d
+INSTRUCTIONS_REG_ON_REG
+mov reg32, reg32 ~ 89 regonregmodrm
+mov reg64, reg64 ~ 49 89 regonregmodrm
+add reg32, reg32 ~ 01 regonregmodrm
+add reg64, reg64 ~ 49 01 regonregmodrm
+sub reg32, reg32 ~ 29 regonregmodrm
+sub reg64, reg64 ~ 49 29 regonregmodrm
+xor reg32, reg32 ~ 31 regonregmodrm
+xor reg64, reg64 ~ 49 31 regonregmodrm
+or reg32, reg32 ~ 09 regonregmodrm
+or reg64, reg64 ~ 49 09 regonregmodrm
+and reg32, reg32 ~ 21 regonregmodrm
+and reg64, reg64 ~ 49 21 regonregmodrm
+adc reg32, reg32 ~ 11 regonregmodrm
+adc reg64, reg64 ~ 49 11 regonregmodrm
+sbb reg32, reg32 ~ 19 regonregmodrm
+sbb reg64, reg64 ~ 49 19 regonregmodrm
+cmp reg32, reg32 ~ 39 regonregmodrm
+cmp reg64, reg64 ~ 49 39 regonregmodrm
+test reg32, reg32 ~ 85 regonregmodrm
+test reg64, reg64 ~ 49 85 regonregmodrm
+REG_ON_REG_MODRM
+eax eax ~ c0
+ecx eax ~ c1
+edx eax ~ c2
+ebx eax ~ c3
+esp eax ~ c4
+ebp eax ~ c5
+esi eax ~ c6
+edi eax ~ c7
+eax ecx ~ c8
+ecx ecx ~ c9
+edx ecx ~ ca
+ebx ecx ~ cb
+esp ecx ~ cc
+ebp ecx ~ cd
+esi ecx ~ ce
+edi ecx ~ cf
+eax edx ~ d0
+ecx edx ~ d1
+edx edx ~ d2
+ebx edx ~ d3
+esp edx ~ d4
+ebp edx ~ d5
+esi edx ~ d6
+edi edx ~ d7
+eax ebx ~ d8
+ecx ebx ~ d9
+edx ebx ~ da
+ebx ebx ~ db
+esp ebx ~ dc
+ebp ebx ~ dd
+esi ebx ~ de
+edi ebx ~ df 
+eax esp ~ e0
+ecx esp ~ e1
+edx esp ~ e2
+ebx esp ~ e3
+esp esp ~ e4
+ebp esp ~ e5
+esi esp ~ e6
+edi esp ~ e7
+eax ebp ~ e8
+ecx ebp ~ e9
+edx ebp ~ ea
+ebx ebp ~ eb
+esp ebp ~ ec
+ebp ebp ~ ed
+esi ebp ~ ee
+edi ebp ~ ef
+eax esi ~ f0
+ecx esi ~ f1
+edx esi ~ f2
+ebx esi ~ f3
+esp esi ~ f4
+ebp esi ~ f5
+esi esi ~ f6
+edi esi ~ f7
+eax edi ~ f8
+ecx edi ~ f9
+edx edi ~ fa
+ebx edi ~ fb
+esp edi ~ fc
+ebp edi ~ fd
+esi edi ~ fe
+edi edi ~ ff
+INSTRUCTIONS_IMM
+mov eax, imm32 ~ b8 imm32
+mov ecx, imm32 ~ b9 imm32
+mov edx, imm32 ~ ba imm32
+mov ebx, imm32 ~ bb imm32
+mov esp, imm32 ~ bc imm32
+mov ebp, imm32 ~ bd imm32
+mov esi, imm32 ~ be imm32
+mov edi, imm32 ~ bf imm32
+mov rax, imm64 ~ 48 b8 imm64
+mov rcx, imm64 ~ 48 b9 imm64
+mov rdx, imm64 ~ 48 ba imm64
+mov rbx, imm64 ~ 48 bb imm64
+mov rsp, imm64 ~ 48 bc imm64
+mov rbp, imm64 ~ 48 bd imm64
+mov rsi, imm64 ~ 48 be imm64
+mov rdi, imm64 ~ 48 bf imm64
+mov ax, imm16 ~ 66 b8 imm16
+mov cx, imm16 ~ 66 b9 imm16
+mov dx, imm16 ~ 66 ba imm16
+mov bx, imm16 ~ 66 bb imm16
+mov sp, imm16 ~ 66 bc imm16
+mov bp, imm16 ~ 66 bd imm16
+mov si, imm16 ~ 66 be imm16
+mov di, imm16 ~ 66 bf imm16
