@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h> 
 
 #include <instructionFileParse.h>
 #include <utils.h>
@@ -71,7 +72,7 @@ static void setSection(uint8_t *holder, char *line) {
 static uint8_t calcuateEncodingSize(char *identifier) { 
     char encoding[50] = { 0 };
     char tmpEncoding[50] = { 0 };
-    strncpy(encoding, identifier + findChar(identifier, '~') + 2, strlen(identifier) - findChar(identifier, '~') - 3);
+    strncpy(encoding, identifier + findChar(identifier, '~', 1) + 2, strlen(identifier) - findChar(identifier, '~', 1) - 3);
     strcpy(tmpEncoding, encoding);
 
     uint8_t extraSize = 0;
@@ -123,7 +124,7 @@ static void showInstructions(void) {
 }
 
 void parseInstructionFile(void) {
-	FILE *fp;
+    FILE *fp;
     char line[100];
     char filename[] = "instructionList.txt";
 
@@ -142,7 +143,7 @@ void parseInstructionFile(void) {
     while(fgets(line, 100, fp)) {
         setSection(&currentSection, line);
        
-        int64_t characterAt = findChar(line, '~');
+        int64_t characterAt = findChar(line, '~', 1);
         if(characterAt == -1) 
             continue;
 
@@ -152,7 +153,7 @@ void parseInstructionFile(void) {
 
         uint8_t *encoding = malloc(50);
         memset(encoding, 0, 50);
-        memcpy(encoding, line + findChar(line, '~') + 2, strlen(line) - findChar(line, '~') - 3);
+        memcpy(encoding, line + findChar(line, '~', 1) + 2, strlen(line) - findChar(line, '~', 1) - 3);
 
         switch(currentSection) {
             case MODRM_ENCODING: 
@@ -176,17 +177,17 @@ void parseInstructionFile(void) {
 }
 
 instructionIMM_t *grabIMMinstructions(void) {
-	return instructionsIMM;
+    return instructionsIMM;
 } 
 
 instructionRR_t *grabRRinstructions(void) {
-	return instructionsRR;
+    return instructionsRR;
 }
 
 oneForOne_t *grabOneForOneInstructions(void) {
-	return oneForOne;
+    return oneForOne;
 }
 
 modrmList_t *grabMODRMlist(void) {
-	return modrmList;
+    return modrmList;
 }

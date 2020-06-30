@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdlib.h>
+
+#include <utils.h>
 
 void changeFileLine(char *newLine, FILE *inputFile, uint64_t lineNum) {
     rewind(inputFile); /* put the fp at the beginning */
@@ -36,9 +39,10 @@ void copyFile(FILE *dest, FILE *src, char *destFileName, char *srcFileName) {
     freopen(destFileName, "r", dest);
 }
 
-int64_t findChar(char *line, char character) {
+int64_t findChar(char *line, char character, uint64_t num) {
+    uint64_t cnt = 0;
     for(uint64_t i = 0; i < strlen(line); i++) {
-        if(line[i] == character)
+        if(line[i] == character && ++cnt >= num)
             return i;
     }
     return -1;

@@ -6,9 +6,10 @@ enum {
 };
 
 typedef struct {
-    uint8_t identifier;
+    uint8_t type;
+    char *identifier;
     char *replaceWith;
     FILE *includeFile;
 } directive_t;
 
-FILE *preprocessorInit(FILE *file); /* returns macroized file */
+void preprocessorInit(FILE *file); /* returns macroized file */
