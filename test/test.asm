@@ -9,5 +9,4 @@ test/include.txt,
     mov rcx, %3; 
 }
 
-this is from main
-mov rax, 69
+lock aaa;

@@ -8,36 +8,24 @@
 #include <stdlib.h>
 
 enum {
-    T_8086,
-    T_NOLONG,
-    T_386,
-    T_286,
-    T_PROT,
-    T_SM,
-    T_SB,
-    T_ND,
-    T_LOCK,
-    T_LONG,
-    T_X86_64
-};
-
-enum {
-    NOTHING,
-    MR,
-    RM,
-    MI,
-    I
+    M_NOX86_64,
+    M_386, 
+    P_LOCK,
+    P_REP,
+    OP_EN_VOID
 };
 
 typedef struct {
-    char *identifier;
-    char format[8][8];
-    uint8_t type;
-    char encoding[8][16]; 
-    uint8_t modes[8];
+    char *identifier; 
+    char *format;
+    uint8_t operand_encoding;
+    char *encoding;
+    uint8_t modes[4];
+    uint8_t prefixes[4];
 } inst_t;
 
 inst_t *valid_inst(const char *inst);
-bool valid_mode(inst_t *inst, uint8_t mode);
+int valid_mode(inst_t *inst, uint8_t mode);
+int valid_prefix(inst_t *inst, const char *str);
 
 #endif
