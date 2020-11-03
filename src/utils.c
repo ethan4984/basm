@@ -1,59 +1,79 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdint.h>
-#include <stdlib.h>
+#include <preprocessor.h>
 
-#include <utils.h>
-
-void changeFileLine(char *newLine, FILE *inputFile, uint64_t lineNum) {
-    rewind(inputFile); /* put the fp at the beginning */
-
-    FILE *tmp = fopen("tmp.txt", "w");
-    char *line = malloc(50);
-
-    uint64_t cnt = 0; // counts lines
-    while(fgets(line, 50, inputFile)) {
-        if(cnt++ == lineNum) {
-            fprintf(tmp, newLine);
-            fputc('\n', tmp);
-            continue;
-        } 
-        fprintf(tmp, line);
-    }
-
-    free(line);
-    copyFile(inputFile, tmp, "lol.txt", "tmp.txt");
-    system("rm tmp.txt");
+char *append_str(char *dest, char *str) {
+    dest = realloc(dest, strlen(dest) + strlen(str) + 4);
+    strcat(dest, str);
+    return dest;
 }
 
-void copyFile(FILE *dest, FILE *src, char *destFileName, char *srcFileName) {
-    freopen(destFileName, "w", dest);
-    freopen(srcFileName, "r", src);
-
-    char *line = malloc(50);
-    while(fgets(line, 50, src)) { 
-        fprintf(dest, line);
-    }
-    free(line);
-
-    freopen(destFileName, "r", dest);
+char *append_char(char *dest, char c) {
+    dest = realloc(dest, strlen(dest) + sizeof(char) + 1);
+    strncat(dest, &c, 1);
+    return dest;
 }
 
-int64_t findChar(char *line, char character, uint64_t num) {
-    uint64_t cnt = 0;
-    for(uint64_t i = 0; i < strlen(line); i++) {
-        if(line[i] == character && ++cnt >= num)
-            return i;
+int find_char(char *src, char character) {
+    int cnt = 0;
+    for(char *ptr = src; *ptr != '\0'; ptr++, cnt++) {
+        if(*ptr == character) { 
+            return cnt; 
+        }
     }
     return -1;
 }
 
-uint64_t howManyOccurencesOfChar(char *string, char character) {
-    uint64_t cnt = 0;
-    for(uint64_t i = 0; i < strlen(string); i++) {
-        if(string[i] == character) 
-            cnt++;
+char *get_scope(FILE *fp, char *line) {
+    int start = find_char(line, '{');
+    if(start == -1) {
+        find_char_file(fp, line, '{');
+        start = find_char(line, '{');
     }
 
-    return cnt;
+    int brase_cnt = 0;
+    char *ret = calloc(1, 1);
+
+    do {
+        for(int i = start; i < (int)strlen(line); i++) {
+            switch(line[i]) {
+                case '{':
+                    brase_cnt++;
+                    break;
+                case '}':
+                    brase_cnt--;
+                    break;
+                default: 
+                    if(!brase_cnt)
+                        goto ret;
+                    ret = append_char(ret, line[i]);
+            }
+        }
+        start = 0;
+    } while(fgets(line, 1000, fp)); // assumes line has >= 1000 bytes to its name
+ret:
+    return ret;
+}
+
+int find_char_file(FILE *fp, char *ret, char c) {
+    while(fgets(ret, 1000, fp)) {
+        if(find_char(ret, c) != -1) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void replace_char(char *src, char c, char replace) {
+    char *save = strchr(src, c);
+    while(save) {
+        *save = replace;
+        save = strchr(save, c);
+    }
+}
+
+void remove_char(char *src, char c) {
+    char *str = src, *save = src;
+    while(*str) {
+        *str = *save++;
+        str += (*str != c);
+    }
 }

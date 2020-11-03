@@ -1,0 +1,3 @@
+this is from include 1
+#inc { test/include1.txt } 
+mov rcx, 69

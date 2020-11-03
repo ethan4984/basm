@@ -1,15 +1,29 @@
-#pragma once
+#ifndef PREPROCESSOR_H_
+#define PREPROCESSOR_H_
 
-enum {
-    DEFINE,
-    INCLUDE,
-};
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+#include <utils.h>
 
 typedef struct {
-    uint8_t type;
-    char *identifier;
-    char *replaceWith;
-    FILE *includeFile;
-} directive_t;
+    size_t addr;
+    const char *identifier;
+} label_t;
 
-void preprocessorInit(FILE *file); /* returns macroized file */
+typedef struct {
+    size_t arg_cnt;
+    char *replace, *identifier;
+} macro_t;
+
+typedef struct {
+    char *output;
+    size_t label_cnt;
+    label_t *labels;
+} pp_t;
+
+pp_t *parse_file(char *file_name);
+
+#endif

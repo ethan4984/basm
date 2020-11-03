@@ -1,9 +1,21 @@
-#pragma once
+#ifndef UTILS_H_
+#define UTILS_H_
 
-int64_t findChar(char *line, char character, uint64_t num);
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 
-uint64_t howManyOccurencesOfChar(char *string, char character);
+char *append_str(char *dest, char *src);
 
-void changeFileLine(char *newLine, FILE *inputFile, uint64_t lineNum);
+int find_char(char *src, char character);
 
-void copyFile(FILE *dest, FILE *src, char *destFileName, char *srcFileName);
+int find_char_file(FILE *fp, char *ret, char c);
+
+char *get_scope(FILE *fp, char *line);
+
+void replace_char(char *src, char c, char replace);
+
+void remove_char(char *src, char c);
+
+#endif 
